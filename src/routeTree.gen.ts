@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LessonsIndexRouteImport } from './routes/lessons.index'
+import { Route as LeaderboardIndexRouteImport } from './routes/leaderboard.index'
+import { Route as AssessmentIndexRouteImport } from './routes/assessment.index'
+import { Route as LessonsSlugRouteImport } from './routes/lessons.$slug'
+import { Route as ApiAssessmentsWokwiRouteImport } from './routes/api.assessments.wokwi'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LessonsIndexRoute = LessonsIndexRouteImport.update({
+  id: '/lessons/',
+  path: '/lessons/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardIndexRoute = LeaderboardIndexRouteImport.update({
+  id: '/leaderboard/',
+  path: '/leaderboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssessmentIndexRoute = AssessmentIndexRouteImport.update({
+  id: '/assessment/',
+  path: '/assessment/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsSlugRoute = LessonsSlugRouteImport.update({
+  id: '/lessons/$slug',
+  path: '/lessons/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAssessmentsWokwiRoute = ApiAssessmentsWokwiRouteImport.update({
+  id: '/api/assessments/wokwi',
+  path: '/api/assessments/wokwi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/lessons/$slug': typeof LessonsSlugRoute
+  '/assessment/': typeof AssessmentIndexRoute
+  '/leaderboard/': typeof LeaderboardIndexRoute
+  '/lessons/': typeof LessonsIndexRoute
+  '/api/assessments/wokwi': typeof ApiAssessmentsWokwiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/lessons/$slug': typeof LessonsSlugRoute
+  '/assessment': typeof AssessmentIndexRoute
+  '/leaderboard': typeof LeaderboardIndexRoute
+  '/lessons': typeof LessonsIndexRoute
+  '/api/assessments/wokwi': typeof ApiAssessmentsWokwiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/lessons/$slug': typeof LessonsSlugRoute
+  '/assessment/': typeof AssessmentIndexRoute
+  '/leaderboard/': typeof LeaderboardIndexRoute
+  '/lessons/': typeof LessonsIndexRoute
+  '/api/assessments/wokwi': typeof ApiAssessmentsWokwiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/lessons/$slug'
+    | '/assessment/'
+    | '/leaderboard/'
+    | '/lessons/'
+    | '/api/assessments/wokwi'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/lessons/$slug'
+    | '/assessment'
+    | '/leaderboard'
+    | '/lessons'
+    | '/api/assessments/wokwi'
+  id:
+    | '__root__'
+    | '/'
+    | '/lessons/$slug'
+    | '/assessment/'
+    | '/leaderboard/'
+    | '/lessons/'
+    | '/api/assessments/wokwi'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LessonsSlugRoute: typeof LessonsSlugRoute
+  AssessmentIndexRoute: typeof AssessmentIndexRoute
+  LeaderboardIndexRoute: typeof LeaderboardIndexRoute
+  LessonsIndexRoute: typeof LessonsIndexRoute
+  ApiAssessmentsWokwiRoute: typeof ApiAssessmentsWokwiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +117,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lessons/': {
+      id: '/lessons/'
+      path: '/lessons'
+      fullPath: '/lessons/'
+      preLoaderRoute: typeof LessonsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard/': {
+      id: '/leaderboard/'
+      path: '/leaderboard'
+      fullPath: '/leaderboard/'
+      preLoaderRoute: typeof LeaderboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assessment/': {
+      id: '/assessment/'
+      path: '/assessment'
+      fullPath: '/assessment/'
+      preLoaderRoute: typeof AssessmentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lessons/$slug': {
+      id: '/lessons/$slug'
+      path: '/lessons/$slug'
+      fullPath: '/lessons/$slug'
+      preLoaderRoute: typeof LessonsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/assessments/wokwi': {
+      id: '/api/assessments/wokwi'
+      path: '/api/assessments/wokwi'
+      fullPath: '/api/assessments/wokwi'
+      preLoaderRoute: typeof ApiAssessmentsWokwiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LessonsSlugRoute: LessonsSlugRoute,
+  AssessmentIndexRoute: AssessmentIndexRoute,
+  LeaderboardIndexRoute: LeaderboardIndexRoute,
+  LessonsIndexRoute: LessonsIndexRoute,
+  ApiAssessmentsWokwiRoute: ApiAssessmentsWokwiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

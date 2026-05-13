@@ -1,6 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Home, GraduationCap, Trophy, ClipboardCheck } from "lucide-react";
-import logo from "@/assets/asist-logo.png";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +15,6 @@ function TopBar() {
   return (
     <header className="sticky top-0 z-30 backdrop-blur bg-background/85 border-b border-border">
       <div className="max-w-md mx-auto flex items-center gap-3 px-4 py-3">
-        <img src={logo} alt="ASIST Foundation" className="h-9 w-9 rounded-md object-contain bg-white" />
         <div className="leading-tight">
           <p className="text-[11px] uppercase tracking-widest text-muted-foreground">ASIST Foundation</p>
           <h1 className="text-sm font-bold text-primary">Young Engineers</h1>

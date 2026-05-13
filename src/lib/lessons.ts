@@ -37,11 +37,11 @@ export const LESSONS: Lesson[] = [
     difficulty: "Beginner",
     embed: {
       kind: "tinkercad",
-      url: "https://www.tinkercad.com/embed/3ZpqRS6Wb6S?editbtn=1",
+      url: "https://www.tinkercad.com/embed/9foEW3AtSKV?editbtn=1&simlab=1"
       label: "Tinkercad — Teacher Template",
     },
-    videoUrl: "https://cdn.coverr.co/videos/coverr-toy-car-on-the-floor-9220/1080p.mp4",
-    worksheetUrl: "/worksheets/lego-car.pdf",
+    videoUrl: "https://www.youtube.com/embed/F309uLRXuwI?si=5EmpV4R_n6lELgoh",
+    worksheetUrl: "https://assets.education.lego.com/v3/assets/blt293eea581807678a/blt98b1580d961580ce/5f88040e1e95ad78fa1e8bec/9686-power-car.pdf",
     badge: "🚗",
     slides: [
       { emoji: "🧰", title: "Gather Your Bricks",       body: "Open your kit. You'll need 1 chassis plate, 4 wheels, 2 axles, and connector pegs.", bg: legoBgs[0] },
@@ -70,11 +70,11 @@ export const LESSONS: Lesson[] = [
     difficulty: "Intermediate",
     embed: {
       kind: "wokwi",
-      url: "https://wokwi.com/projects/348363808577356371",
+      url: "https://wokwi.com/projects/463872440564369409",
       label: "Wokwi — Teacher Template",
     },
-    videoUrl: "https://cdn.coverr.co/videos/coverr-traffic-lights-at-night-7723/1080p.mp4",
-    worksheetUrl: "/worksheets/arduino-traffic-light.pdf",
+    videoUrl: "https://www.youtube.com/embed/YGqULCNECww?si=quHqXM-DAAlibS3e",
+    worksheetUrl: "https://iopscience.iop.org/article/10.1088/1742-6596/1378/4/042079/pdf",
     badge: "🚦",
     slides: [
       { emoji: "🧠", title: "Meet the Arduino",          body: "The Arduino UNO is a tiny computer. It runs the code you write.", bg: legoBgs[0] },
@@ -98,17 +98,58 @@ export const LESSONS: Lesson[] = [
 ];
 
 export const STARTER_CODE = `// ASIST Foundation — Traffic Light Starter
-const int RED = 8, YELLOW = 9, GREEN = 10;
+//====================================
+// CONFIGURACTIÓN OF THE HARDWARE
+//====================================
+const uint8_t PIN_LED_STOP  = 3;
+const uint8_t PIN_LED_WAIT = 4;
+const uint8_t PIN_LED_GO  = 5;
 
+
+
+//====================================
+// SETUP
+//====================================
 void setup() {
-  pinMode(RED, OUTPUT);
-  pinMode(YELLOW, OUTPUT);
-  pinMode(GREEN, OUTPUT);
+  //INTIALIZE
+  pinMode(PIN_LED_STOP, OUTPUT);
+  pinMode(PIN_LED_WAIT, OUTPUT);
+  pinMode(PIN_LED_GO, OUTPUT);
+
+  //TURN OFF ALL LEDS
+  digitalWrite(PIN_LED_STOP, LOW);
+  digitalWrite(PIN_LED_WAIT, LOW);
+  digitalWrite(PIN_LED_GO, LOW);
 }
 
+//====================================
+// LOOP PRINCIPAL
+//====================================
 void loop() {
-  digitalWrite(RED, HIGH);  delay(3000); digitalWrite(RED, LOW);
-  digitalWrite(GREEN, HIGH); delay(3000); digitalWrite(GREEN, LOW);
-  digitalWrite(YELLOW, HIGH); delay(1000); digitalWrite(YELLOW, LOW);
+
+//TURN ON THE GREEN LIGHT FOR CARS TO MOVE
+  digitalWrite(PIN_LED_STOP, LOW);
+  digitalWrite(PIN_LED_WAIT, LOW);
+  digitalWrite(PIN_LED_GO, HIGH);
+  delay(3000);
+
+//TURN ON THE YELLOW LIGHT FOR CARS TO MOVING TO BE READY AND STOP
+  digitalWrite(PIN_LED_STOP, LOW);
+  digitalWrite(PIN_LED_WAIT, HIGH);
+  digitalWrite(PIN_LED_GO, LOW);
+  delay(1500);
+
+//TURN ON THE RED LIGHTS FOR CARS TO STOP
+  digitalWrite(PIN_LED_STOP, HIGH);
+  digitalWrite(PIN_LED_WAIT, LOW);
+  digitalWrite(PIN_LED_GO, LOW);
+  delay(3000);
+
+//TURN ON THE RED AND ORANGE LIGHTS FOR CARS AT STOP TO BE READY TO GO 
+  digitalWrite(PIN_LED_STOP, HIGH);
+  digitalWrite(PIN_LED_WAIT, HIGH);
+  digitalWrite(PIN_LED_GO, LOW);
+  delay(1500);
+
 }
 `;

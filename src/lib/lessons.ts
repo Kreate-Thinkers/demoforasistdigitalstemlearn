@@ -37,7 +37,7 @@ export const LESSONS: Lesson[] = [
     difficulty: "Beginner",
     embed: {
       kind: "tinkercad",
-      url: "https://www.tinkercad.com/embed/9foEW3AtSKV?editbtn=1&simlab=1"
+      url: "https://www.tinkercad.com/embed/9foEW3AtSKV?editbtn=1&simlab=1",
       label: "Tinkercad — Teacher Template",
     },
     videoUrl: "https://www.youtube.com/embed/F309uLRXuwI?si=5EmpV4R_n6lELgoh",
